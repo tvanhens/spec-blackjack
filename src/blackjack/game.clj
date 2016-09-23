@@ -1,6 +1,7 @@
 (ns blackjack.game
   (:require [blackjack.deck :as deck]
             [clojure.spec :as s]
+            [clojure.spec.test :as test]
             [clojure.spec.gen :as gen]))
 
 (defn init-game []
@@ -62,7 +63,7 @@
         (assoc ::deck deck))))
 
 (s/fdef deal
-        :args (s/cat :game ::game)
-        :ret  ::game)
+  :args (s/cat :game ::game)
+  :ret  ::game)
 
-(s/instrument-all)
+(test/instrument)

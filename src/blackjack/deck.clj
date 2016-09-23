@@ -1,5 +1,6 @@
 (ns blackjack.deck
-  (:require [clojure.spec :as s]))
+  (:require [clojure.spec :as s]
+            [clojure.spec.test :as test]))
 
 (def suits #{:hearts :diamonds :clubs :spades})
 
@@ -9,12 +10,10 @@
 
 (s/def ::card (s/cat :rank ranks :suit suits))
 
-(s/def ::cards (s/coll-of ::card []))
+(s/def ::cards (s/coll-of ::card))
 
 (s/def ::deck (s/and ::cards
-                     #(= 52 (count %))
-                     #(= % (dedupe %))))
+                #(= 52 (count %))
+                #(= % (dedupe %))))
 
 (defn generate-deck [] (shuffle cards))
-
-(s/fdef generate-deck :ret ::deck)
